@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncat.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroger <aroger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 16:23:07 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/12 16:27:04 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/13 15:54:24 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/13 15:54:28 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strncat(char *s1, const char *s2, size_t n)
+int		ft_strcmp(const char *s1, const char *s2)
 {
 	if (s1 && s2)
-		ft_strncpy(&s1[ft_strlen(s1)], s2, n);
-	return (s1);
+	{
+		while (*s1 == *s2)
+		{
+			if (*s1 == '\0')
+				return (0);
+			s1++;
+			s2++;
+		}
+		if (*(unsigned char *)s1 > *(unsigned char *)s2)
+			return (1);
+		else
+			return (-1);
+	}
+	return (0);
 }

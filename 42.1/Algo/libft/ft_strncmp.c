@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 19:30:27 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/07 10:55:23 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/13 16:37:38 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/13 16:37:41 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned long	i;
-
-	if (dst && src)
+	if (s1 && s2 && n)
 	{
-		i = 0;
-		while (src[i] != '\0')
-			dst[i] = src[i++];
-		dst[i] = '\0';
+		while (n-- > 0)
+		{
+			if (*s1 != *s2)
+			{
+				if (*(unsigned char *)s1 > *(unsigned char *)s2)
+					return (1);
+				else
+					return (-1);
+			}
+			if (*s1 == '\0')
+				return (0);
+			s1++;
+			s2++;
+		}
 	}
-	return (dst);
+	return (0);
 }
