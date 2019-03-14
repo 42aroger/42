@@ -47,7 +47,7 @@ static int	ft_string_len(char const *s, char c)
 	return (len);
 }
 
-char	**ft_strsplit(char const *s, char c)
+char		**ft_strsplit(char const *s, char c)
 {
 	char	**array;
 	int		nbrwords;
@@ -64,6 +64,14 @@ char	**ft_strsplit(char const *s, char c)
 		{
 			while (*s != '\0' && *s != c)
 				s++;
+			array[index] = ft_strsub(s, 0, ft_string_len(s, c));
+			if (array[index] == NULL)
+				return (NULL);
+			s = s + ft_string_len(s, c);
+			index++;
 		}
+		array[index] = NULL;
+		return (array);
 	}
+	return (NULL);
 }

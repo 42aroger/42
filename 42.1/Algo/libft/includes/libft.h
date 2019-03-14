@@ -40,5 +40,7 @@ char		*ft_strncpy(char *dst, const char *src, size_t len);
 char		*ft_strnew(size_t size);
 int			ft_tolower(int c);
 int			ft_toupper(int c);
+char		*ft_strsub(char const *s, unsigned int start, size_t len);
+char		**ft_strsplit(char const *s, char c);
 
 #endif
