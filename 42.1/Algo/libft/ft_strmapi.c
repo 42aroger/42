@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 19:30:27 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/07 10:55:23 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 16:51:28 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 16:51:30 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned long	i;
+	char			*dst;
+	unsigned int	i;
 
-	if (dst && src)
+	dst = NULL;
+	if (s && f)
 	{
-		i = 0;
-		while (src[i] != '\0')
+		dst = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+		if (dst)
 		{
-			dst[i] = src[i];
-			i++;
+			i = 0;
+			while (s[i])
+			{
+				dst[i] = f(i, s[i]);
+				i++;
+			}
+			dst[i] = '\0';
 		}
-		dst[i] = '\0';
 	}
 	return (dst);
 }

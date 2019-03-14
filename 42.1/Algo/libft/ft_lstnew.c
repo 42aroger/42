@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 19:30:27 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/07 10:55:23 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 18:52:07 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 18:52:08 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	unsigned long	i;
+	t_list	*tmp;
 
-	if (dst && src)
+	tmp = NULL;
+	tmp = (t_list *)malloc(sizeof(t_list));
+	if (!tmp)
+		return (NULL);
+	tmp->content = NULL;
+	tmp->next = NULL;
+	if (!content)
 	{
-		i = 0;
-		while (src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
+		tmp->content_size = 0;
+		return (tmp);
 	}
-	return (dst);
+	tmp->content = malloc(content_size);
+	ft_memcpy(tmp->content, content, content_size);
+	tmp->content_size = content_size;
+	return (tmp);
 }

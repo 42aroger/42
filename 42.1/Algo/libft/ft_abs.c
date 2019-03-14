@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 19:30:27 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/07 10:55:23 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 18:49:32 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 18:49:34 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strcpy(char *dst, const char *src)
+int		ft_abs(int n)
 {
-	unsigned long	i;
-
-	if (dst && src)
-	{
-		i = 0;
-		while (src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	return (dst);
+	if (n < 0)
+		return (-n);
+	return (n);
 }

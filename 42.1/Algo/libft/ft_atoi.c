@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 19:30:27 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/07 10:55:23 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 18:30:35 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 18:30:41 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+int		ft_atoi(const char *str)
 {
-	unsigned long	i;
+	int		nb;
+	int		sign;
 
-	if (dst && src)
+	if (!str)
+		return (0);
+	sign = 1;
+	while (*str == ' ' || *str == '\t' || *str == '\n' || *str == '\v'
+		|| *str == '\f' || *str == '\r')
+		str++;
+	if (*str == '-' || *str == '+')
 	{
-		i = 0;
-		while (src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
-	return (dst);
+	nb = 0;
+	while (ft_isdigit((int)*str))
+	{
+		nb = nb * 10 + *str - '0';
+		str++;
+	}
+	return (sign * nb);
 }

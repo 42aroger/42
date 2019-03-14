@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroger <aroger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 09:20:51 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/12 09:34:57 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 14:58:21 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 14:58:24 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char	*str1;
 	unsigned char	*str2;
@@ -21,8 +21,15 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	{
 		str1 = (unsigned char *)dst;
 		str2 = (unsigned char *)src;
-		while (n--)
-			*str1++ = *str2++;
+		if (dst > src)
+		{
+			str1 = str1 + len;
+			str2 = str2 + len;
+			while (len--)
+				*--str1 = *--str2;
+		}
+		else
+			ft_memcpy(dst, src, len);
 	}
 	return (dst);
 }

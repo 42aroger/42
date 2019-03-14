@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strequ.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroger <aroger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 09:20:51 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/12 09:34:57 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 18:11:54 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 18:11:55 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+int		ft_strequ(char const *s1, char const *s2)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-
-	if (dst && src)
+	if (s1 && s2)
 	{
-		str1 = (unsigned char *)dst;
-		str2 = (unsigned char *)src;
-		while (n--)
-			*str1++ = *str2++;
+		while (ft_tolower((int)*s1) == ft_tolower((int)*s2))
+		{
+			if (*s1 == '\0')
+				return (1);
+			s1++;
+			s2++;
+		}
 	}
-	return (dst);
+	return (0);
 }

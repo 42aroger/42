@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroger <aroger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 09:20:51 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/12 09:34:57 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 16:07:03 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 16:07:04 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memalloc(size_t size)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
+	unsigned char	*new;
+	size_t			i;
 
-	if (dst && src)
+	new = NULL;
+	new = (unsigned char *)malloc(size);
+	if (new)
 	{
-		str1 = (unsigned char *)dst;
-		str2 = (unsigned char *)src;
-		while (n--)
-			*str1++ = *str2++;
+		i = 0;
+		while (size--)
+			new[i++] = 0;
 	}
-	return (dst);
+	return ((void *)new);
 }

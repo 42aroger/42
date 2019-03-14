@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroger <aroger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 09:20:51 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/12 09:34:57 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 16:21:12 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 16:21:14 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+char	*ft_strrchr(const char *s, int c)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
+	char	*ch;
 
-	if (dst && src)
+	ch = NULL;
+	if (s)
 	{
-		str1 = (unsigned char *)dst;
-		str2 = (unsigned char *)src;
-		while (n--)
-			*str1++ = *str2++;
+		while (*s)
+		{
+			if (*s == c)
+				ch = (char *)s;
+			s++;
+		}
+		if (*s == c)
+			ch = (char *)s;
 	}
-	return (dst);
+	return (ch);
 }

@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/06 19:30:27 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/07 10:55:23 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 16:57:01 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 16:57:03 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dst, const char *src)
+char	*ft_strtrim(char const *s)
 {
-	unsigned long	i;
+	size_t	i;
+	size_t	j;
+	size_t	k;
 
-	if (dst && src)
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+		i++;
+	j = 0;
+	k = 0;
+	while (s[k])
 	{
-		i = 0;
-		while (src[i] != '\0')
+		if (s[k] != ' ' && s[k] != '\n' && s[k] != '\t')
 		{
-			dst[i] = src[i];
-			i++;
+			k++;
+			j = k;
 		}
-		dst[i] = '\0';
+		else
+			k++;
 	}
-	return (dst);
+	if (j == 0)
+		return (ft_strdup(""));
+	return (ft_strsub(s, (unsigned int)i, j - i + 1));
 }

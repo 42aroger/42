@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroger <aroger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 09:20:51 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/12 09:34:57 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 14:49:39 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 14:50:08 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
 	unsigned char	*str1;
 	unsigned char	*str2;
@@ -22,7 +22,13 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		str1 = (unsigned char *)dst;
 		str2 = (unsigned char *)src;
 		while (n--)
-			*str1++ = *str2++;
+		{
+			*str1 = *str2;
+			if (*str2 == (unsigned char)c)
+				return ((void *)(str1 + 1));
+			str1++;
+			str2++;
+		}
 	}
-	return (dst);
+	return (NULL);
 }

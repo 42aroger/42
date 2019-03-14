@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aroger <aroger@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aroger <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/12 09:20:51 by aroger            #+#    #+#             */
-/*   Updated: 2019/03/12 09:34:57 by aroger           ###   ########.fr       */
+/*   Created: 2019/03/14 16:40:15 by aroger            #+#    #+#             */
+/*   Updated: 2019/03/14 16:40:17 by aroger           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
+	char	*dst;
+	size_t	i;
 
-	if (dst && src)
+	dst = NULL;
+	if (s && f)
 	{
-		str1 = (unsigned char *)dst;
-		str2 = (unsigned char *)src;
-		while (n--)
-			*str1++ = *str2++;
+		dst = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+		if (dst)
+		{
+			i = 0;
+			while (s[i])
+			{
+				dst[i] = f(s[i]);
+				i++;
+			}
+			dst[i] = '\0';
+		}
 	}
 	return (dst);
 }

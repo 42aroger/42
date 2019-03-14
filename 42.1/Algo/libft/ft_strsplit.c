@@ -57,7 +57,7 @@ char		**ft_strsplit(char const *s, char c)
 	{
 		index = 0;
 		nbrwords = ft_count_words(s, c);
-		array = (char**)malloc(sizeof(char *) * (nbrword + 1));
+		array = (char**)malloc(sizeof(char *) * (nbrwords + 1));
 		if (!array)
 			return (NULL);
 		while (nbrwords--)
