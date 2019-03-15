@@ -19,13 +19,24 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 	if (dst && src)
 	{
 		i = 0;
+		if (ft_strlen(src) == 0)
+		{
+			dst[i] = src[i];
+			i++;
+			while (dst[i] != '\0')
+				dst[i++] = '\0';
+			return (dst);
+		}
 		while (len-- > 0 && src[i])
 		{
 			dst[i] = src[i];
 			i++;
 		}
-		while (len-- > 0)
-			dst[i++] = '\0';
+		if (len != (size_t)-1)
+		{
+			while (len-- > 0)
+				dst[i++] = '\0';
+		}
 	}
 	return (dst);
 }

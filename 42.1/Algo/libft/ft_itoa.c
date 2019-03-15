@@ -50,7 +50,7 @@ char		*ft_itoa(int n)
 		res = res + nblen + sign;
 		*res = '\0';
 		if (!n)
-			*--res = '\0';
+			*--res = '0';
 		while (n != 0)
 		{
 			*--res = ft_abs(n % 10) + '0';
