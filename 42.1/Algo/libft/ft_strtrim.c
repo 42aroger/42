@@ -15,27 +15,21 @@
 char	*ft_strtrim(char const *s)
 {
 	size_t	i;
-	size_t	j;
 	size_t	k;
 
 	if (!s)
 		return (NULL);
 	i = 0;
-	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+	while ((s[i] == ' ' || s[i] == '\n' || s[i] == '\t') && s[i])
 		i++;
-	j = 0;
-	k = 0;
-	while (s[k])
+	if (s[i] != '\0')
 	{
-		if (s[k] != ' ' && s[k] != '\n' && s[k] != '\t')
-		{
-			k++;
-			j = k;
-		}
-		else
-			k++;
+		k = ft_strlen(s) - 1;
+		while ((s[k] == ' ' || s[k] == '\n' || s[k] == '\t') && s[k] > 0)
+			k--;
+		k++;
 	}
-	if (j == 0)
+	else
 		return (ft_strdup(""));
-	return (ft_strsub(s, (unsigned int)i, j - i + 1));
+	return (ft_strsub(s, (unsigned int)i, k - i));
 }

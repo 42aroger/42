@@ -16,27 +16,24 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
 	size_t	i;
 
-	if (dst && src)
+	i = 0;
+	if (ft_strlen(src) == 0)
 	{
-		i = 0;
-		if (ft_strlen(src) == 0)
-		{
-			dst[i] = src[i];
-			i++;
-			while (dst[i] != '\0')
-				dst[i++] = '\0';
-			return (dst);
-		}
-		while (len-- > 0 && src[i])
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		if (len != (size_t)-1)
-		{
-			while (len-- > 0)
-				dst[i++] = '\0';
-		}
+		dst[i] = src[i];
+		i++;
+		while (dst[i] != '\0')
+			dst[i++] = '\0';
+		return (dst);
+	}
+	while (len-- > 0 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	if (len != (size_t)-1)
+	{
+		while (len-- != (size_t)-1)
+			dst[i++] = '\0';
 	}
 	return (dst);
 }

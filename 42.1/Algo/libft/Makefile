@@ -23,7 +23,7 @@ SOURCES = ft_abs.c ft_itoa.c ft_memccpy.c ft_putchar_fd.c ft_strchr.c\
 			ft_memmove.c ft_putstr.c ft_strdup.c ft_strmapi.c ft_strsplit.c\
 			ft_isdigit.c ft_lstnew.c ft_memset.c ft_putstr_fd.c	ft_strequ.c\
 			ft_strncat.c ft_strstr.c ft_isprint.c ft_memalloc.c	ft_putchar.c\
-			ft_strcat.c	ft_striter.c ft_strncmp.c ft_strsub.c
+			ft_strcat.c	ft_striter.c ft_strncmp.c ft_strsub.c ft_strnlen.c
 
 HEADERS = includes/libft.h
 

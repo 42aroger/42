@@ -16,7 +16,9 @@ int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {
 	if (s1 && s2)
 	{
-		while (ft_tolower((int)*s1) == ft_tolower((int)*s2))
+		if (n == 0)
+			return (1);
+		while (*s1 == *s2)
 		{
 			n--;
 			if (*s1 == '\0' || n == 0)

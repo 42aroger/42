@@ -34,43 +34,43 @@ static int	ft_count_words(char const *s, char c)
 	return (i);
 }
 
-static int	ft_string_len(char const *s, char c)
+static char	**ft_fill(char **array, char const *s, char c)
 {
-	int		len;
+	size_t	index;
+	size_t	p;
+	size_t	start;
 
-	len = 0;
-	while (*s != '\0' && *s != c)
+	index = 0;
+	p = 0;
+	while (s[p] != '\0')
 	{
-		len++;
-		s++;
+		if (s[p] == c)
+			p++;
+		else if (s[p] != c)
+		{
+			start = p;
+			while (s[p] != c && s[p])
+				p++;
+			array[index] = ft_strsub(s, start, (p - start));
+			index++;
+		}
 	}
-	return (len);
+	array[index] = NULL;
+	return (array);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
 	char	**array;
-	int		nbrwords;
-	int		index;
+	size_t	nbrwords;
 
 	if (s)
 	{
-		index = 0;
 		nbrwords = ft_count_words(s, c);
 		array = (char**)malloc(sizeof(char *) * (nbrwords + 1));
 		if (!array)
 			return (NULL);
-		while (nbrwords--)
-		{
-			while (*s != '\0' && *s != c)
-				s++;
-			array[index] = ft_strsub(s, 0, ft_string_len(s, c));
-			if (array[index] == NULL)
-				return (NULL);
-			s = s + ft_string_len(s, c);
-			index++;
-		}
-		array[index] = NULL;
+		array = ft_fill(array, s, c);
 		return (array);
 	}
 	return (NULL);

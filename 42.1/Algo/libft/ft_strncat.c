@@ -14,7 +14,13 @@
 
 char	*ft_strncat(char *s1, const char *s2, size_t n)
 {
-	if (s1 && s2)
-		ft_strncpy(&s1[ft_strlen(s1)], s2, n);
-	return (s1);
+	char	*str;
+	size_t	size;
+
+	str = s1;
+	s1 += ft_strlen(s1);
+	size = ft_strnlen(s2, n);
+	s1[size] = '\0';
+	ft_memcpy(s1, s2, size);
+	return (str);
 }
