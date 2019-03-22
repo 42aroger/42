@@ -15,8 +15,6 @@
 
 # include <string.h>
 
-# define BUFF_SIZE 64
-
 typedef struct		s_list
 {
 	void			*content;
@@ -51,7 +49,7 @@ void				ft_putchar(char c);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
 void				ft_putstr(char const *s);
-char				*ft_strcat(char *s1, char *s2);
+char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strcpy(char *dst, const char *src);
