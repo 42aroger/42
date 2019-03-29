@@ -1,0 +1,3 @@
+docker service rm engineering-bay
+docker service create -d --name marines --network overmind --replicas 2 42school/marine-squad OC_USERNAME=user OC_USERNAME=password
+

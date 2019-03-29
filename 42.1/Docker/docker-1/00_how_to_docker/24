@@ -1,0 +1,1 @@
+docker run -d --hostname orbital-command --name orbital-command --network overmind -e RABBITMQ_DEFAULT_USER=user -e RABBITMQ_DEFAULT_PASS=password rabbitmq
