@@ -1,1 +1,1 @@
-docker node ls
+docker service ls
