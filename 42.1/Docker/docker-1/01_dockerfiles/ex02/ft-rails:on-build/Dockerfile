@@ -1,5 +1,7 @@
 FROM ruby
 
+MAINTAINER aroger <aroger@student.42.fr>
+
 RUN apt-get update -y && apt-get install -y build-essential nodejs libpq-dev sqlite3
 
 ONBUILD COPY app /opt/app

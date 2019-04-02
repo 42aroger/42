@@ -1,5 +1,7 @@
 FROM debian
 
+MAINTAINER aroger <aroger@student.42.fr>
+
 RUN apt-get update && apt-get upgrade -y && \
     apt-get install -y ca-certificates openssh-server wget postfix
 
@@ -10,4 +12,4 @@ RUN apt update && apt install -y tzdata && \
 
 EXPOSE 443 80 22
 
-ENTRYPOINT (/opt/gitlab/embedded/bin/runsvdir-start &) && gitlab-ctl reconfigure && tail -f /dev/null
+ENTRYPOINT ["(/opt/gitlab/embedded/bin/runsvdir-start &) && gitlab-ctl reconfigure && tail -f /dev/null"]

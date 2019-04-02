@@ -1,13 +1,29 @@
 FROM debian
 
-#Update and upgrade + install MariaDB + systemd
-RUN apt-get update && apt-get upgrade -y && apt-get install systemd mariadb-server mariadb-client -y
+MAINTAINER aroger <aroger@student.42.fr>
 
-#Install and start Nginx
-RUN apt-get install nginx -y && ./etc/init.d/nginx start
+ENV DEBIAN_FRONTEND=noninteractive
 
-#Install php5-fpm + php7 dependencies for mariadb
-RUN apt-get install php7.0-fpm php7-mysqlnd php7-curl php7-gd php7-intl php-pear php7-imagick php7-imap php7-mcrypt php7-memcache php7-intl php7-pspell php7-recode php7-snmp php7-sqlite php7-tidy php7-xmlrpc php7-xsl -y
+#Update and upgrade + install supervisor + MariaDB
+RUN apt-get update && apt-get upgrade -y && apt-get install supervisor mariadb-server mariadb-client -y
 
-#Restart nginx
-RUN ./etc/init.d/nginx restart
+#Install and start Nginx + php7.0-fpm and dependencies
+RUN apt-get install nginx php7.0-fpm php7.0-mysqlnd php7.0-curl php7.0-gd php7.0-intl php7.0-imap php7.0-mcrypt php7.0-sqlite php7.0-xmlrpc -y
+
+# Nginx configuration
+#ADD nginx.conf /etc/nginx/
+ADD default /etc/nginx/sites-available/
+
+#Supervisor configuration files
+ADD supervisord.conf /etc/supervisor/
+ADD supervisor-lemp.conf /etc/supervisor/conf.d/
+
+#Add phpinfo as index.php
+ADD index.php /var/www/html/
+
+# Clean up
+RUN apt-get clean
+
+EXPOSE 80 443 3306
+
+CMD ["supervisord"]
