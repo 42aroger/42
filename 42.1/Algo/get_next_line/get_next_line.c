@@ -25,9 +25,11 @@ int		get_next_line(const int fd, char **line)
 	char		*str;
 	static char	*rest = NULL;
 	size_t		ret;
+	int 		check;
 
-	if (init_gnl(fd, line, &rest) != 0)
-		return (init_gnl(fd, line, &rest));
+	check = init_gnl(fd, line, &rest);
+	if (check != 0)
+		return (check);
 	str = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1));
 	while ((ret = read(fd, str, BUFF_SIZE)) > 0 && !ft_strchr(str, '\n'))
 	{
@@ -43,6 +45,8 @@ int		get_next_line(const int fd, char **line)
 	free(str);
 	if (ret > 1)
 		ret = 1;
+	else if (ret < 0)
+		ret = -1;
 	return (ret);
 }
 
@@ -67,10 +71,10 @@ static void		join_strings(char **line, char *str)
 	{
 		tmp = ft_strdup(*line);
 		free(*line);
-		len = ft_strlen(str) + ft_strlen(tmp);
+		p = ft_strlen(tmp);
+		len = ft_strlen(str) + p;
 		*line = (char*)malloc(sizeof(char) * (len + 1));
 		ft_strcpy(*line, tmp);
-		p = ft_strlen(tmp);
 		free(tmp);
 	}
 	else
@@ -78,31 +82,19 @@ static void		join_strings(char **line, char *str)
 		len = ft_strlen(str);
 		*line = (char*)malloc(sizeof(char) * (len + 1));
 	}
-	ft_putstr(str);
-	while (str[p] != '\0' && str[p] != '\n')
-	{
-		ft_putnbr(p);
-		//ft_putchar(*str);
-		ft_putchar('a');
-		ft_putchar((char)str[p]);
-		ft_putchar('b');
-		*line[p] = (char)str[p];
-		p++;
-	}
-	*line[p] = '\0';
+	while (*str != '\0' && *str != '\n')
+		(*line)[p++] = *str++;
+	(*line)[p] = '\0';
 }
 
 static int		init_gnl(const int fd, char **line, char **rest)
 {
+	char		buf[BUFF_SIZE + 1];
 	char		*tmp;
 
-	if (!line)
-		line = (char**)malloc(sizeof(char *));
-	if (*line)
-		free(line);
-	*line = NULL;
-	if (fd < 0 || BUFF_SIZE <= 0)
+	if (!line || read(fd, buf, 0) < 0 || fd < 0 || BUFF_SIZE <= 0)
 		return (-1);
+	*line = NULL;
 	if (*rest && ft_strchr(*rest, '\n'))
 	{
 		join_strings(line, *rest);
