@@ -1,1 +1,1 @@
-docker volume create hatchery
+docker volume create --name hatchery
