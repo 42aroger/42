@@ -1,3 +1,5 @@
+# docker build -t emacsalpine .
+# docker run -it --name="emacs" emacsalpine
 FROM alpine
 
 MAINTAINER aroger <aroger@student.42.fr>
