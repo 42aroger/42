@@ -1,4 +1,5 @@
-FROM debian
+# docker build -t gitssh .
+FROM debian:stable-slim
 
 MAINTAINER aroger <aroger@student.42.fr>
 
