@@ -15,99 +15,56 @@
 #include <stdlib.h>
 #include "get_next_line.h"
 
-static char		*fill_rest(char *str);
-static void		join_strings(char **line, char *str);
-static int		init_gnl(const int fd, char **line, char **rest);
-
-
-int		get_next_line(const int fd, char **line)
+static int		ft_new_line(char **s, char **line, int fd, int ret)
 {
-	char		*str;
-	static char	*rest = NULL;
-	size_t		ret;
-	int 		check;
-
-	check = init_gnl(fd, line, &rest);
-	if (check != 0)
-		return (check);
-	str = (char*)malloc(sizeof(char) * (BUFF_SIZE + 1));
-	while ((ret = read(fd, str, BUFF_SIZE)) > 0 && !ft_strchr(str, '\n'))
-	{
-		str[ret] = '\0';
-		join_strings(line, str);
-	}
-	if (ret > 0)
-	{
-		str[ret] = '\0';
-		join_strings(line, str);
-		rest = fill_rest(str);
-	}
-	free(str);
-	if (ret > 1)
-		ret = 1;
-	else if (ret < 0)
-		ret = -1;
-	return (ret);
-}
-
-static char		*fill_rest(char *str)
-{
-	while (*str != '\n' && *str != '\0')
-		str++;
-	if (*str == '\n')
-		return (ft_strdup(++str));
-	else
-		return (NULL);
-}
-
-static void		join_strings(char **line, char *str)
-{
-	size_t		len;
-	size_t		p;
 	char		*tmp;
+	int			len;
 
-	p = 0;
-	if (*line)
+	len = 0;
+	while (s[fd][len] != '\n' && s[fd][len] != '\0')
+		len++;
+	if (s[fd][len] == '\n')
 	{
-		tmp = ft_strdup(*line);
-		free(*line);
-		p = ft_strlen(tmp);
-		len = ft_strlen(str) + p;
-		*line = (char*)malloc(sizeof(char) * (len + 1));
-		ft_strcpy(*line, tmp);
-		free(tmp);
+		*line = ft_strsub(s[fd], 0, len);
+		tmp = ft_strdup(s[fd] + len + 1);
+		free(s[fd]);
+		s[fd] = tmp;
+		if (s[fd][0] == '\0')
+			ft_strdel(&s[fd]);
 	}
-	else
+	else if (s[fd][len] == '\0')
 	{
-		len = ft_strlen(str);
-		*line = (char*)malloc(sizeof(char) * (len + 1));
+		if (ret == BUFF_SIZE)
+			return (get_next_line(fd, line));
+		*line = ft_strdup(s[fd]);
+		ft_strdel(&s[fd]);
 	}
-	while (*str != '\0' && *str != '\n')
-		(*line)[p++] = *str++;
-	(*line)[p] = '\0';
+	return (1);
 }
 
-static int		init_gnl(const int fd, char **line, char **rest)
+int				get_next_line(const int fd, char **line)
 {
+	static char	*s[255];
 	char		buf[BUFF_SIZE + 1];
 	char		*tmp;
+	int			ret;
 
-	if (!line || read(fd, buf, 0) < 0 || fd < 0 || BUFF_SIZE <= 0)
+	if (fd < 0 || line == NULL)
 		return (-1);
-	*line = NULL;
-	if (*rest && ft_strchr(*rest, '\n'))
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		join_strings(line, *rest);
-		tmp = *rest;
-		*rest = fill_rest(tmp);
-		free(tmp);
-		return (1);
+		buf[ret] = '\0';
+		if (s[fd] == NULL)
+			s[fd] = ft_strnew(1);
+		tmp = ft_strjoin(s[fd], buf);
+		free(s[fd]);
+		s[fd] = tmp;
+		if (ft_strchr(buf, '\n'))
+			break ;
 	}
-	else if (*rest && !ft_strchr(*rest, '\n'))
-	{
-		*line = ft_strdup(*rest);
-		free(*rest);
-		*rest = NULL;
-	}
-	return (0);
+	if (ret < 0)
+		return (-1);
+	else if (ret == 0 && (s[fd] == NULL || s[fd][0] == '\0'))
+		return (0);
+	return (ft_new_line(s, line, fd, ret));
 }
