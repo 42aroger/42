@@ -10,61 +10,61 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <unistd.h>
 #include <stdlib.h>
+#include "libft.h"
 #include "get_next_line.h"
 
-static int		ft_new_line(char **s, char **line, int fd, int ret)
+static int		ft_new_line(char **gnl, char **line, int fd, int ret)
 {
 	char		*tmp;
 	int			len;
 
 	len = 0;
-	while (s[fd][len] != '\n' && s[fd][len] != '\0')
+	while (gnl[fd][len] != '\n' && gnl[fd][len] != '\0')
 		len++;
-	if (s[fd][len] == '\n')
+	if (gnl[fd][len] == '\n')
 	{
-		*line = ft_strsub(s[fd], 0, len);
-		tmp = ft_strdup(s[fd] + len + 1);
-		free(s[fd]);
-		s[fd] = tmp;
-		if (s[fd][0] == '\0')
-			ft_strdel(&s[fd]);
+		*line = ft_strsub(gnl[fd], 0, len);
+		tmp = ft_strdup(gnl[fd] + len + 1);
+		free(gnl[fd]);
+		gnl[fd] = tmp;
+		if (gnl[fd][0] == '\0')
+			ft_strdel(&gnl[fd]);
 	}
-	else if (s[fd][len] == '\0')
+	else if (gnl[fd][len] == '\0')
 	{
 		if (ret == BUFF_SIZE)
 			return (get_next_line(fd, line));
-		*line = ft_strdup(s[fd]);
-		ft_strdel(&s[fd]);
+		*line = ft_strdup(gnl[fd]);
+		ft_strdel(&gnl[fd]);
 	}
 	return (1);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static char	*s[255];
-	char		buf[BUFF_SIZE + 1];
+	static char	*gnl[MAX_FD];
+	char		buff[BUFF_SIZE + 1];
 	char		*tmp;
 	int			ret;
 
-	if (fd < 0 || line == NULL)
+	if (fd < 0 || !line)
 		return (-1);
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
+	while ((ret = read(fd, buff, BUFF_SIZE)) > 0)
 	{
-		buf[ret] = '\0';
-		if (s[fd] == NULL)
-			s[fd] = ft_strnew(1);
-		tmp = ft_strjoin(s[fd], buf);
-		free(s[fd]);
-		s[fd] = tmp;
-		if (ft_strchr(buf, '\n'))
+		buff[ret] = '\0';
+		if (!gnl[fd])
+			gnl[fd] = ft_strnew(1);
+		tmp = ft_strjoin(gnl[fd], buff);
+		free(gnl[fd]);
+		gnl[fd] = tmp;
+		if (ft_strchr(buff, '\n'))
 			break ;
 	}
 	if (ret < 0)
 		return (-1);
-	else if (ret == 0 && (s[fd] == NULL || s[fd][0] == '\0'))
+	else if (ret == 0 && (!gnl[fd] || gnl[fd][0] == '\0'))
 		return (0);
-	return (ft_new_line(s, line, fd, ret));
+	return (ft_new_line(gnl, line, fd, ret));
 }
