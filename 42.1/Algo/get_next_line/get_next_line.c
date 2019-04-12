@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h>
 #include "libft.h"
 #include "get_next_line.h"
 
@@ -44,7 +45,7 @@ static int		ft_new_line(char **gnl, char **line, int fd, int ret)
 
 int				get_next_line(const int fd, char **line)
 {
-	static char	*gnl[MAX_FD];
+	static char	*gnl[OPEN_MAX];
 	char		buff[BUFF_SIZE + 1];
 	char		*tmp;
 	int			ret;
